@@ -8,9 +8,11 @@ import EmployeeBlueprints.EmployeeType;
  * @author lhartman2
  * @version 1.0.1
  */
+@EmployeeObjects.EmployeeType(type = "Commission")
 public final class CommissionEmployee extends Employee {
     
     private double sales;
+    @PayRate(tyoe = "Commission")
     private double rate;
 
     /**
@@ -43,7 +45,8 @@ public final class CommissionEmployee extends Employee {
      */
     public void increaseSales(double s)
     {
-        sales += s;
+        if(s > 0)
+            sales += s;
     }
 
     /**
@@ -67,6 +70,7 @@ public final class CommissionEmployee extends Employee {
      * @return a double for the pay
      */
     @Override
+    @WeeklyPayCalculator
     public double calculateWeeklyPay()
     {
         return rate * sales;
